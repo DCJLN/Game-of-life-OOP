@@ -88,7 +88,7 @@ public class Grid {
 							continue;
 						} else {
 							if(cells[k][l].isAlive() == true) {
-								cells[i][j].incrementNbNeighbors(); // La cell doit être en vie pour compter le nombre de voisins ?	
+								cells[i][j].incrementNbNeighbors();
 							}
 						}
 					}
