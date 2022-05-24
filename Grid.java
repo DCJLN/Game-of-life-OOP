@@ -18,7 +18,7 @@ public class Grid {
 			for(int j = 0; j < gridSize; j++) {
 				int draw = rand.nextInt(2);
 				if(j >= squareLimit 
-						&& j < (gridSize - squareLimit) 
+						&& j < (gridSize - squareLimit)
 						&& i >= squareLimit 
 						&& i < (gridSize - squareLimit)
 						&& draw == 1) {
@@ -81,7 +81,7 @@ public class Grid {
 				for(int k = i - 1; k < i + 2; k++) {
 					for(int l = j - 1; l < j + 2; l++) {
 						if(k == -1 
-								|| k >= gridSize - 1 
+								|| k >= gridSize - 1  // Pas correct -  à changer. Devrait être K > gridSize - 1
 								|| l == -1 
 								|| l >= gridSize - 1
 								|| (k == i && l == j)) {
