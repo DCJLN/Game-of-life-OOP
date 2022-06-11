@@ -2,10 +2,10 @@ import java.util.Random;
 
 public class Grid {
 	private int gridSize;
-	@SuppressWarnings("unused")
 	private int squareSize;
 	private Cell cells[][];
 	
+	// CONSTRUCTOR
 	public Grid(int gridSize, int squareSize) {
 		this.gridSize = gridSize;
 		this.squareSize = squareSize;
@@ -18,7 +18,7 @@ public class Grid {
 			for(int j = 0; j < gridSize; j++) {
 				int draw = rand.nextInt(2);
 				if(j >= squareLimit 
-						&& j < (gridSize - squareLimit)
+						&& j < (gridSize - squareLimit) 
 						&& i >= squareLimit 
 						&& i < (gridSize - squareLimit)
 						&& draw == 1) {
@@ -38,17 +38,28 @@ public class Grid {
 		}
 	}
 	
+	public int getGridSize() {
+		return gridSize;
+	}
+	
+	public int getSquareSize() {
+		return squareSize;
+	}
+	
+	public Cell getCell(int row, int col){
+		return cells[row][col];
+	}
 	
 	/*
-	 * Method that displays the grid with * for living cells and - for dead cells.
+	 * Method that displays the grid (* for living cells and - for dead cells)
+	 * as well as the number of killed or newly born border cells.
 	 */
-	public void displayGrid() {
+	public void displayConsoleGrid() {
 		for(int i = 0; i < gridSize; i++) {
 			for(int j = 0; j < gridSize; j++) {
 				String tempStr = "";
 				if (j == 0) {
-					tempStr += "[+";
-					tempStr += String.format("%3d", ((BorderCell) cells[i][j]).getBirthCounter()) + "/-";
+					tempStr += "[+" + String.format("%3d", ((BorderCell) cells[i][j]).getBirthCounter()) + "/-";
 					tempStr += String.format("%3d", ((BorderCell) cells[i][j]).getKillCounter()) + "]";
 				}
 				
@@ -59,20 +70,19 @@ public class Grid {
 				}
 				
 				if(j == gridSize - 1) {
-					tempStr += "[+";
-					tempStr += String.format("%3d", ((BorderCell) cells[i][j]).getBirthCounter()) + "/-";
-					tempStr += String.format("%3d", ((BorderCell) cells[i][j]).getKillCounter()) + "]";
-					tempStr += " \n";
+					tempStr += "[+" + String.format("%3d", ((BorderCell) cells[i][j]).getBirthCounter()) + "/-";
+					tempStr += String.format("%3d", ((BorderCell) cells[i][j]).getKillCounter()) + "] \n";
 				}
 				
 				System.out.print(tempStr);
 			}
 		}
+		System.out.println();
 	}
-	
 	
 	/*
 	 * Method that computes the number of neighbors for each cell in the grid.
+	 * Int variable "nbNeighbors" for each cell object is set in consequence.
 	 */
 	public void computeNeighbors(){
 		for(int i = 0; i < gridSize; i++) {
@@ -81,15 +91,13 @@ public class Grid {
 				for(int k = i - 1; k < i + 2; k++) {
 					for(int l = j - 1; l < j + 2; l++) {
 						if(k == -1 
-								|| k >= gridSize - 1  // Pas correct -  à changer. Devrait être K > gridSize - 1
+								|| k > gridSize - 1 
 								|| l == -1 
-								|| l >= gridSize - 1
+								|| l > gridSize - 1
 								|| (k == i && l == j)) {
 							continue;
-						} else {
-							if(cells[k][l].isAlive() == true) {
-								cells[i][j].incrementNbNeighbors();
-							}
+						} else if(cells[k][l].isAlive() == true) {
+								cells[i][j].incrementNbNeighbors();	
 						}
 					}
 				}
@@ -98,7 +106,8 @@ public class Grid {
 	}
 	
 	/*
-	 * Method that kill or give birth to a cell depending on its number of neighbors.
+	 * Method that kills or gives birth to a cell depending on its number of neighbors.
+	 * Boolean variable "Alive" for each cell object is modified in consequence.
 	 */
 	public void cellsGod() {
 		for(int i = 0; i < gridSize; i++) {
