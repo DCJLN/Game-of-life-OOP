@@ -2,7 +2,8 @@
 public class Cell {
 	private boolean alive;
 	private int nbNeighbors;
-		
+	
+	// CONSTRUCTOR
 	public Cell(boolean alive) {
 		this.alive = alive;
 		this.nbNeighbors = 0;

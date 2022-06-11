@@ -3,6 +3,7 @@ public class BorderCell extends Cell  {
 	private int killCounter;
 	private int birthCounter;
 	
+	// CONSTRUCTOR
 	public BorderCell(boolean alive) {
 		super(alive);
 		setKillCounter(0);
