@@ -16,16 +16,19 @@ public class GameOfLife {
 					System.exit(1);
 				} else {
 					Grid grid = new Grid(firstArg, secondArg);
+					//grid.displayConsoleGrid();
+					Gui gui = new Gui(firstArg * 20, grid);
 					while(true) {
-						grid.displayGrid();
 						grid.computeNeighbors();
 						grid.cellsGod();
 						try {
-							Thread.sleep(500);
+							Thread.sleep(1000);
 							
 						} catch(InterruptedException ex) {
 							System.err.println(ex.getMessage());
 						}
+						//grid.displayConsoleGrid();
+						gui.updateGui(grid);
 					}
 				}
 			} catch (NumberFormatException e) {
